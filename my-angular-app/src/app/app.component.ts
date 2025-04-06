@@ -21,34 +21,41 @@ export class AppComponent implements AfterViewInit  {
   errorMsg:string='';
 
   ngAfterViewInit() {
-    // Use optional chaining to safely access the nativeElement
-    this.mainTextInput?.nativeElement.focus();
+   // Focus on the main text input when the component is initialized
+   this.setFocus(this.mainTextInput);
+  }
+
+  setFocus(inputElement: ElementRef | undefined) {
+    //set focus on the provided input element
+    inputElement?.nativeElement.focus();
+  }
+
+  setErrorMsgAndFocus(msg: string, inputToFocus: ElementRef | undefined) {
+    // Set the error message and focus on the corresponding input field
+    this.errorMsg = msg;
+    this.setFocus(inputToFocus);
   }
 
   findMatches() {
     this.positions = [];
     this.errorMsg='';
-    if(!this.mainText || !this.subText){
-      if(!this.mainText && !this.subText )
-      {
-        this.errorMsg="Please enter the Text and Sub Text!";
-        this.mainTextInput?.nativeElement.focus();      
+
+    if (!this.mainText || !this.subText) {
+      if (!this.mainText && !this.subText) {
+        this.setErrorMsgAndFocus("Please enter the Text and Sub Text!", this.mainTextInput);
+      } else if (!this.mainText) {
+        this.setErrorMsgAndFocus("Please enter the Text!", this.mainTextInput);
+      } else if (!this.subText) {
+        this.setErrorMsgAndFocus("Please enter the Sub Text!", this.subTextInput);
       }
-      else if(!this.mainText && this.subText)
-      {
-        this.errorMsg="Please enter the Text!";
-        this.mainTextInput?.nativeElement.focus();
-      }
-      else if(this.mainText && !this.subText){
-        this.errorMsg="Please enter the Sub Text!";
-        this.subTextInput?.nativeElement.focus();
-      } 
-    return;
-  }
+      return;
+    }
+
+    // Find all positions of the subText in mainText using a regex
     const regex = new RegExp(this.subText, 'gi');
     let match;
     while ((match = regex.exec(this.mainText)) !== null) {
-      this.positions.push(match.index);      
+      this.positions.push(match.index+1);      
     }   
   }
 

@@ -99,7 +99,7 @@ describe('AppComponent', () => {
 
     // Test that the findMatches method updates positions array
     expect(component.positions.length).toBeGreaterThan(0);
-    expect(component.positions).toContain(13);  // Expected match position for "world" Radha
+    expect(component.positions).toContain(14);  // Expected match position for "world" Radha
   });
 
   // Test 9: Verify the display of "No matches found" message
@@ -121,7 +121,7 @@ describe('AppComponent', () => {
 
     const matchPositionMessage = component.positions;
     expect(matchPositionMessage).toBeTruthy();
-    expect(matchPositionMessage.toString()).toContain('13,20');
+    expect(matchPositionMessage.toString()).toContain('14,21');
   });  
 
     // Test 11: Verify the display of match positions
@@ -131,7 +131,7 @@ describe('AppComponent', () => {
 
     component.findMatches();
 
-    expect(component.positions).toEqual([13, 20]);  // Positions where "world" appears case-insensitively
+    expect(component.positions).toEqual([14, 21]);  // Positions where "world" appears case-insensitively
     expect(component.errorMsg).toBe('');
   });
 
