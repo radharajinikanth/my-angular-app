@@ -1,0 +1,141 @@
+<style>
+  .main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for all the divs inside the main container */
+.main div {
+  margin-bottom: 15px;
+}
+
+/* Label styling */
+.main label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Textarea styling */
+.main textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Input field styling */
+.main input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Button styling */
+.main button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main button:hover {
+  background-color: #45a049;
+}
+
+/* Match positions styling */
+.main h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.main p {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+/* No matches found message */
+.main p.no-matches {
+  color: #e74c3c;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+} 
+#errorMsg {
+  padding: 20px;
+  border: 1px solid #cc0000;  /* Red border */
+  background-color: #ffeeee;  /* Light red background */
+  border-radius: 8px;
+  width: fit-content;
+  margin: 10px;
+}
+
+#errorMsg p {
+  color: #cc0000;  /* Red text for error message */
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;  /* Center the error message */
+  margin: 0;
+}
+.centered-text {
+  font-weight:bold;
+  text-align: center;  
+  margin-top: 20px;     
+  font-size: 1.1rem;   
+  color: #333;          
+}
+</style>
+<main class="main">
+  <div>   
+    <p class="centered-text">Find the Subtext position in the entered Text.</p>    
+  </div>
+  <div>
+    <label>Text:</label>
+    <textarea [(ngModel)]="mainText" rows="4" cols="50" #mainTextInput></textarea>
+  </div>
+  
+  <div>
+    <label>Subtext:</label>
+    <input type="text" [(ngModel)]="subText" #subTextInput />
+  </div>
+  <div *ngIf=errorMsg id="errorMsg">
+    <p>{{errorMsg}}</p>
+  </div>
+
+  <button (click)="findMatches()">Find Matches</button>
+<br>
+<br>
+  <!-- <button (click)="findMatches_Index()">Find Matches</button> -->
+  
+  <div *ngIf="positions.length > 0">
+    <h3>Match Positions:</h3>
+    <p>{{ positions.join(', ') }}</p>
+  </div>
+  
+  <div *ngIf="positions.length === 0 && mainText && subText">
+    <p>No matches found.</p>
+  </div>
+
+  <!-- <div>    
+    <p>{{ textPosition }}</p>
+  </div> -->
+</main>
+
